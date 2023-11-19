@@ -1,0 +1,65 @@
+<%- include("partials/header"); -%>
+
+<script>
+    function myFn()
+    {
+        document.getElementById('form-element').classList.remove("applyHidden");
+        document.getElementById('form-element').classList.add("applyVisible");
+    }
+    function myFn1()
+    {
+        document.getElementById('val1').classList.remove("applyHidden");
+        document.getElementById('val1').classList.add("applyVisible");
+        document.getElementById('val1').min=document.getElementById("val2").value;
+    }
+
+</script>
+<div class ="para-align" >
+    <div aria-colspan="">
+        <button onclick="myFn()" style=" color: float;float:  right;background-color: gold;margin: 2rem 10rem;">FILTER</button>
+    </div>
+    <br><br>
+    <div>
+        <form id="form-element" class="applyHidden" style="margin-top: 2 rem;" action="/" method="post">
+            <input type="text" name="level" placeholder="Level" >
+            <input type="text" name="message" placeholder="Message">
+            <input type="text" name="resourceId" placeholder="resourceId" >
+            <input type="datetime-local" id="val2"name="TimeStamp1" placeholder="TimeStamp1" step="1" onchange="myFn1()">
+            <input type="datetime-local" id="val1" class="applyHidden" name="TimeStamp2" placeholder="TimeStamp" step="1" min="">
+            <input type="text" name="traceId" placeholder="TraceId" >
+            <input type="text" name="spanId" placeholder="SpanId">
+            <input type="text" name="commit" placeholder="Commit">
+            <input type="text" name="metaData" placeholder="ParentResourceID">
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+    
+    <table style="margin-top: 4rem;">
+        <tr>
+            <th>LEVEL</th>
+            <th>MESSAGE</th>
+            <th>RESOUCEID</th>
+            <th>TIMESTAMP</th>
+            <th>TRACEID</th>
+            <th>SPANID</th>
+            <th>COMMIT</th>
+            <th>PARENTRESOURCEID</th>
+        </tr>
+        <% if(data) { %></if>
+        <% for (var i =0;i<data.length;i++) { %>
+            <tr style="margin-top: 1rem;">
+                
+                <td><%= data[i].level %></td>
+                <td><%= data[i].message%></td>
+                <td><%= data[i].resourceId%></td>
+                <td><%= data[i].timestamp%></td>
+                <td><%= data[i].traceId%></td>
+                <td><%= data[i].spanId%></td>
+                <td><%= data[i].commit%></td>
+                <td> <%=data[i].metadata.parentResourceId %></td>
+            </tr>
+            <% }} %> 
+    </table>
+    </div>
+
+<%- include("partials/footer"); -%>
